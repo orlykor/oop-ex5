@@ -1,0 +1,98 @@
+orlykor12
+203595541
+orly koren
+helped = aviram yosef noa portugal.
+=============================
+=      File description     =
+=============================
+**fileScript package**
+
+FileScriptErrorException.java - the file exceptions of the error in the fileScript package.
+MyFileScript.java - the main class, the manager.
+Parser.java - the parser between the files and the program.
+Section.java - the sections of the filter and order
+
+**filters**
+AllFilter.java- the default filter, returns all the files in the directory
+Filter.java - the interface for all the filters
+
+SizeFilters.java-  the super class for the filters that check the size of a file. checks for valid values
+(not negative)
+BetweenFilter.java - passes the files that are between the given values
+GreaterThanFilter.java- passes the files that are greater then the given value
+SmallerThan.java - passes the files that are smaller then the given value
+
+FileFilter.java- passes the files that has the same name as the given string.
+ContainsFilter.java- passes the files that contains the given substring
+PrefixFulter.java- passes the files that starts with the given substring
+SuffixFilter.java - passes the files that ends with the given substring
+
+IsAFileFilter.java - the super class for the attribute filters - that check if a file is-something.
+ExecutableFilter.java - passes the files that are executable
+HiddenFilter.java - passes the files that are hidden
+WritableFilter.java- passes the files that are writable 
+
+FilterDecorator.java - reverse the statement from pass to not passed. 
+FilterException.java - the file exceptions of the error in the filters package.
+FilterFactory.java - in charge of creating all the filters according to the given value
+
+**orders**
+Order.java- the interface for all the orders
+OrderDecorator.java - reverse the order of the files
+OrderException.java -  the file exceptions of the error in the orders package.
+OrderFactory.java - in charge of creating all the orders according to the given value
+AbsOrder.java - sort the files from a-z.
+SizeOrder.java - sort the files according to their size.
+TypeOrder.java - sort the files according to their type.
+
+README - this file
+QUESTIONS - the given questions for this excersie.
+
+
+=============================
+=          Design           =
+=============================
+
+i did my design modularity.
+I created 3 package, each does not rely on the other.
+that way, if i want to change something in one of the programs I dont need to change it all.
+I also implemented the open-closed principle.that way my program is open for extension but closed 
+for modification. for example if i want to add another order class then i dont need to change any of my 
+classes except from adding another line to the order factory.
+moreover, the classes dont need to know how the other classes are implemented. for example, the MyFileScript
+is not aware of what filters we have, or about the orders, it doesnt mind, as long as we get the matched 
+files ordered.
+
+=============================
+=  Implementation details   =
+=============================
+**
+I implemented my order classed as singleton because we need only one instance of it.
+
+**
+for the reverse and not statements i did a decorator class which is only conncted to the inteface and throw 
+it, it reverses the solution from the order/filter. instead of going throw all the filters and order and 
+reverse them, I reverse it throw the  interface.
+
+**
+the hierarcy I needed to handle was, that I wanted to throw my exception from "down" and catch them "up"
+in my program. the meaning of it is that for example when i needed to handle the first type of errors i
+wanted to actually handle with them only in the main class, and there it catches all the errors and does what
+it needs, for the second type errors, i also catched it in the main class, but there i checked for it 
+immediatly in the main method, there i terminated the program and printed error.
+that way all the errors are handled in the "upper" class instead of each classes on the way.
+for each type of errors i made a class the extends the exception class. so i had an exception class for the
+filters, for the order and for the fileScript. 
+
+**
+for the order classes i implemented a comparator. that way i could use his method- compare, i chose the way 
+i wanted to sort the items, according to the order command, and then i used the method sort of the collection.
+it chooses the best way to sort the list, that way i get a sorted list, without caring how it gets sorted.
+(i didnt use data structure).
+
+
+
+=============================
+=    Answers to questions   =
+=============================
+
